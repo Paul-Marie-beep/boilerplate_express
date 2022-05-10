@@ -1,8 +1,9 @@
 const fs = require("fs");
+const dataArray = require("./config.js");
 
 // Name of DB used for now
-const dbName = "pouetDB";
-const collectionName = "users";
+const dbName = dataArray[0];
+const collectionName = dataArray[1];
 const modelNameTransit = collectionName.slice(0, collectionName.length - 1);
 const modelName = modelNameTransit[0].toLocaleUpperCase() + modelNameTransit.slice(1);
 const schemaName = modelNameTransit + "Schema";
