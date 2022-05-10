@@ -83,10 +83,10 @@ routerTemplate = replaceModelNameInTemplate(routerTemplate);
 // 4°) Write the files that we are going to need
 fs.writeFileSync(`${__dirname}/new_project/server.js`, serverTemplate);
 fs.writeFileSync(`${__dirname}/new_project/app.js`, appTemplate);
-fs.writeFileSync(`${__dirname}/new_project/routes/planeRoutes.js`, routerTemplate);
+fs.writeFileSync(`${__dirname}/new_project/routes/${modelNameTransit}Routes.js`, routerTemplate);
 fs.writeFileSync(`${__dirname}/new_project/utils/apiFeatures.js`, apiFeaturesTemplate);
-fs.writeFileSync(`${__dirname}/new_project/controllers/planeController.js`, controllerTemplate);
-fs.writeFileSync(`${__dirname}/new_project/models/planeModel.js`, modelTemplate);
+fs.writeFileSync(`${__dirname}/new_project/controllers/${modelNameTransit}Controller.js`, controllerTemplate);
+fs.writeFileSync(`${__dirname}/new_project/models/${modelNameTransit}Model.js`, modelTemplate);
 fs.writeFileSync(`${__dirname}/new_project/package.json`, packageJsonTemplate);
 fs.writeFileSync(`${__dirname}/new_project/.prettierrc`, prettierTemplate);
 fs.writeFileSync(`${__dirname}/new_project/config.env`, dotenvTemplate);
