@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const {%SCHEMA_NAME%}= new mongoose.Schema(
+const userSchema= new mongoose.Schema(
   {
     name: {
       type: String,
@@ -43,18 +43,18 @@ const {%SCHEMA_NAME%}= new mongoose.Schema(
   }
 );
 
-{%SCHEMA_NAME%}.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
 // eslint-disable-next-line prefer-arrow-callback
-{%SCHEMA_NAME%}.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   // eslint-disable-next-line no-console
   console.log('Will save document....');
   next();
 });
 
-const {%MODEL_NAME%} = mongoose.model('{%MODEL_NAME%}', {%SCHEMA_NAME%});
+const User = mongoose.model('User', userSchema);
 
-module.exports = {%MODEL_NAME%};
+module.exports = User;

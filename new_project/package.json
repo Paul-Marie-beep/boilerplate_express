@@ -1,5 +1,5 @@
 {
-  "name": "{%NAME_OF_DB%}",
+  "name": "pouetDB",
   "version": "1.0.0",
   "description": "learning node, express & mongoDB",
   "main": "app.js",

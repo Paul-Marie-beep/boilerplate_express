@@ -4,7 +4,7 @@ const morgan = require("morgan");
 
 const app = express();
 
-const {%MODELNAMETRANSIT%}Router = require('./routes/{%MODELNAMETRANSIT%}Routes');
+const userRouter = require('./routes/userRoutes');
 
 // 1°) Middlewares
 
@@ -29,6 +29,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/v1/{%COLLECTION_NAME%}', {%MODELNAMETRANSIT%}Router);
+app.use('/api/v1/users', userRouter);
 
 module.exports = app;

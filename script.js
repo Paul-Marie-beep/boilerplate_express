@@ -1,5 +1,12 @@
 const fs = require("fs");
 
+// Name of DB used for now
+const dbName = "pouetDB";
+const collectionName = "users";
+const modelNameTransit = collectionName.slice(0, collectionName.length - 1);
+const modelName = modelNameTransit[0].toLocaleUpperCase() + modelNameTransit.slice(1);
+const schemaName = modelNameTransit + "Schema";
+
 // 1°) Create a directory for the new project and the various directories that we are going to need.
 const newProjectDir = "./new_project";
 if (!fs.existsSync(newProjectDir)) {
@@ -27,17 +34,53 @@ if (!fs.existsSync(newModelDir)) {
 }
 
 // 2°) Read the template that are going to be used to create our files
-const serverTemplate = fs.readFileSync(`${__dirname}/templates/server_template.txt`, "utf-8");
-const appTemplate = fs.readFileSync(`${__dirname}/templates/app_template.txt`, "utf-8");
-const routerTemplate = fs.readFileSync(`${__dirname}/templates/router_template.txt`, "utf-8");
-const apiFeaturesTemplate = fs.readFileSync(`${__dirname}/templates/api_features_template.txt`, "utf-8");
-const controllerTemplate = fs.readFileSync(`${__dirname}/templates/controller_template.txt`, "utf-8");
-const modelTemplate = fs.readFileSync(`${__dirname}/templates/model_template.txt`, "utf-8");
-const packageJsonTemplate = fs.readFileSync(`${__dirname}/templates/package_json_template.txt`, "utf-8");
-const prettierTemplate = fs.readFileSync(`${__dirname}/templates/prettier_template.txt`, "utf-8");
-const dotenvTemplate = fs.readFileSync(`${__dirname}/templates/dotenv_template.txt`, "utf-8");
+let serverTemplate = fs.readFileSync(`${__dirname}/templates/server_template.txt`, "utf-8");
+let appTemplate = fs.readFileSync(`${__dirname}/templates/app_template.txt`, "utf-8");
+let routerTemplate = fs.readFileSync(`${__dirname}/templates/router_template.txt`, "utf-8");
+let apiFeaturesTemplate = fs.readFileSync(`${__dirname}/templates/api_features_template.txt`, "utf-8");
+let controllerTemplate = fs.readFileSync(`${__dirname}/templates/controller_template.txt`, "utf-8");
+let modelTemplate = fs.readFileSync(`${__dirname}/templates/model_template.txt`, "utf-8");
+let packageJsonTemplate = fs.readFileSync(`${__dirname}/templates/package_json_template.txt`, "utf-8");
+let prettierTemplate = fs.readFileSync(`${__dirname}/templates/prettier_template.txt`, "utf-8");
+let dotenvTemplate = fs.readFileSync(`${__dirname}/templates/dotenv_template.txt`, "utf-8");
 
-// 3°) Write the files that we are going to need
+// 3°) We create a functions that replaces the placeholders by the name of our DB.
+const replaceDbNameInTemplate = function (file) {
+  const output = file.replace(/{%NAME_OF_DB%}/g, dbName);
+  return output;
+};
+const replaceModelNameInTemplate = function (file) {
+  const output = file.replace(/{%MODEL_NAME%}/g, modelName);
+  return output;
+};
+const replaceSchemaNameInTemplate = function (file) {
+  const output = file.replace(/{%SCHEMA_NAME%}/g, schemaName);
+  return output;
+};
+
+const replaceCollectionNameInTemplate = function (file) {
+  const output = file.replace(/{%COLLECTION_NAME%}/g, collectionName);
+  return output;
+};
+
+const replaceModelNameTransitInTemplate = function (file) {
+  const output = file.replace(/{%MODELNAMETRANSIT%}/g, modelNameTransit);
+  return output;
+};
+
+modelTemplate = replaceModelNameInTemplate(modelTemplate);
+modelTemplate = replaceSchemaNameInTemplate(modelTemplate);
+dotenvTemplate = replaceDbNameInTemplate(dotenvTemplate);
+appTemplate = replaceCollectionNameInTemplate(appTemplate);
+appTemplate = replaceModelNameTransitInTemplate(appTemplate);
+controllerTemplate = replaceModelNameTransitInTemplate(controllerTemplate);
+controllerTemplate = replaceCollectionNameInTemplate(controllerTemplate);
+controllerTemplate = replaceModelNameInTemplate(controllerTemplate);
+packageJsonTemplate = replaceDbNameInTemplate(packageJsonTemplate);
+routerTemplate = replaceModelNameTransitInTemplate(routerTemplate);
+routerTemplate = replaceModelNameInTemplate(routerTemplate);
+
+// 4°) Write the files that we are going to need
 fs.writeFileSync(`${__dirname}/new_project/server.js`, serverTemplate);
 fs.writeFileSync(`${__dirname}/new_project/app.js`, appTemplate);
 fs.writeFileSync(`${__dirname}/new_project/routes/planeRoutes.js`, routerTemplate);

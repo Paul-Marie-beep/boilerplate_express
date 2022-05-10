@@ -1,22 +1,22 @@
 // /*eslint-disable*/
 
-const {%MODEL_NAME%} = require("../models/{%MODELNAMETRANSIT%}Model");
+const User = require("../models/userModel");
 const APIFeatures = require("../utils/apiFeatures");
 
-exports.getAll{%MODEL_NAME%}s = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     // EXECUTE QUERY
-    const features = new APIFeatures({%MODEL_NAME%}.find(), req.query).filter().sort().limitFields().paginate();
+    const features = new APIFeatures(User.find(), req.query).filter().sort().limitFields().paginate();
 
-    const {%COLLECTION_NAME%} = await features.query;
+    const users = await features.query;
 
     //SEND RESPONSE
     res.status(200).json({
       status: "success",
       requestedAt: req.requestTime,
-      results: {%COLLECTION_NAME%}.length,
+      results: users.length,
       data: {
-        {%COLLECTION_NAME%},
+        users,
       },
     });
   } catch (err) {
