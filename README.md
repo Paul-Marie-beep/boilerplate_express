@@ -1,4 +1,6 @@
-Boiler plate for a new Node.js project using Express, MongoDB and Mongoose.
+Boiler plate for a new Node.js project using Express, MongoDB and Mongoose./n
 
-Juste do on the root of the project:
+Enter the name of your MongoDB database and of your collection in config.js /n
+
+Than all you have to do is:
 $ node script.js
