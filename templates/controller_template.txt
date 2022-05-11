@@ -26,3 +26,74 @@ exports.getAll{%MODEL_NAME%}s = async (req, res) => {
     });
   }
 };
+
+
+exports.get{%MODEL_NAME%} = async (req, res) => {
+  try {
+    const {%MODELNAMETRANSIT%} = await {%MODEL_NAME%}.findById(req.params.id);
+    res.status(200).json({
+      status: 'success',
+      requestedAt: req.requestTime,
+      data: {
+        {%MODELNAMETRANSIT%},
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'We have not found anything !!',
+    });
+  }
+};
+
+exports.create{%MODEL_NAME%} = async (req, res) => {
+  try {
+    const new{%MODEL_NAME%} = await {%MODEL_NAME%}.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        {%MODELNAMETRANSIT%}: new{%MODEL_NAME%},
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.update{%MODEL_NAME%} = async (req, res) => {
+  try {
+    const  {%MODELNAMETRANSIT%} = await {%MODEL_NAME%}.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      date: {
+        {%MODELNAMETRANSIT%},
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.delete{%MODEL_NAME%} = async (req, res) => {
+  try {
+    await {%MODEL_NAME%}.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'succes',
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};

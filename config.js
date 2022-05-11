@@ -1,5 +1,5 @@
-DB_NAME = "pouet";
-COLLECTION_NAME = "testeurs";
+DB_NAME = "planesite";
+COLLECTION_NAME = "planes";
 
 const dataArray = [DB_NAME, COLLECTION_NAME];
 

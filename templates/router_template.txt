@@ -5,6 +5,8 @@ const {%MODELNAMETRANSIT%}Controller = require('../controllers/{%MODELNAMETRANSI
 // Par convention, on appelle le routeur router
 const router = express.Router();
 
-router.route('/').get({%MODELNAMETRANSIT%}Controller.getAll{%MODEL_NAME%}s);
+router.route('/').get({%MODELNAMETRANSIT%}Controller.getAll{%MODEL_NAME%}s).post({%MODELNAMETRANSIT%}Controller.create{%MODEL_NAME%});
+
+router.route('/:id').get({%MODELNAMETRANSIT%}Controller.get{%MODEL_NAME%}).patch({%MODELNAMETRANSIT%}Controller.update{%MODEL_NAME%}).delete({%MODELNAMETRANSIT%}Controller.delete{%MODEL_NAME%});
 
 module.exports = router;
